@@ -1,0 +1,92 @@
+<%
+  const pageTitle = locals.title ? `${title} — TUAN FASHION` : `TUAN FASHION — ${t('meta.tagline')}`;
+  const pageDesc = locals.description || t('meta.description');
+  const ogImage = locals.ogImage || img('1544957992-20514f595d6f', 1200, 630);
+  const navItems = [
+    ['/collections', 'collections'],
+    ['/lookbook', 'lookbook'],
+    ['/atelier', 'atelier'],
+  ];
+  const isActive = (p) => currentPath === p || currentPath.startsWith(p + '/');
+%><!doctype html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= pageDesc %>">
+  <link rel="canonical" href="<%= site.url + alternates[lang] %>">
+  <link rel="alternate" hreflang="vi" href="<%= site.url + alternates.vi %>">
+  <link rel="alternate" hreflang="en" href="<%= site.url + alternates.en %>">
+  <link rel="alternate" hreflang="x-default" href="<%= site.url + alternates.vi %>">
+  <meta property="og:site_name" content="TUAN FASHION">
+  <meta property="og:type" content="<%= locals.ogType || 'website' %>">
+  <meta property="og:title" content="<%= pageTitle %>">
+  <meta property="og:description" content="<%= pageDesc %>">
+  <meta property="og:image" content="<%= ogImage %>">
+  <meta property="og:url" content="<%= site.url + alternates[lang] %>">
+  <meta property="og:locale" content="<%= lang === 'vi' ? 'vi_VN' : 'en_US' %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#F4EFE7">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="/css/main.css?v=1.0.0">
+  <script src="/js/boot.js"></script>
+  <script src="/js/main.js?v=1.0.0" defer></script>
+  <%- locals.head || '' %>
+</head>
+<body class="page-<%= page %><%= locals.overlayHeader ? ' has-overlay-header' : '' %>">
+  <a class="skip-link" href="#main"><%= t('a11y.skip') %></a>
+  <%- include('icons') %>
+
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav"
+              aria-label="<%= t('nav.menu') %>" data-label-open="<%= t('nav.menu') %>" data-label-close="<%= t('nav.close') %>" data-menu-toggle>
+        <span></span><span></span>
+      </button>
+
+      <nav class="nav nav-primary" aria-label="<%= t('nav.collections') %>">
+        <% navItems.forEach(([p, key]) => { %>
+          <a href="<%= url(p) %>" class="nav-link"<% if (isActive(p)) { %> aria-current="page"<% } %>><%= t('nav.' + key) %></a>
+        <% }) %>
+      </nav>
+
+      <a class="logo" href="<%= url('/') %>" aria-label="<%= t('a11y.home') %>">
+        <span class="logo-word">TUAN</span><span class="logo-sub">FASHION</span>
+      </a>
+
+      <div class="nav nav-secondary">
+        <a href="<%= url('/contact') %>" class="nav-link nav-hide-md"<% if (isActive('/contact')) { %> aria-current="page"<% } %>><%= t('nav.contact') %></a>
+        <div class="lang-switch" role="group" aria-label="<%= t('nav.language') %>">
+          <a href="<%= alternates.vi %>" hreflang="vi" lang="vi"<% if (lang === 'vi') { %> aria-current="true"<% } %>>VI</a>
+          <span aria-hidden="true">/</span>
+          <a href="<%= alternates.en %>" hreflang="en" lang="en"<% if (lang === 'en') { %> aria-current="true"<% } %>>EN</a>
+        </div>
+        <a href="<%= url('/appointment') %>" class="btn btn-outline btn-sm nav-hide-sm"><%= t('nav.appointment') %></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" data-mobile-nav hidden>
+    <nav class="mobile-nav-inner container" aria-label="<%= t('nav.home') %>">
+      <ul>
+        <li><a href="<%= url('/') %>"><%= t('nav.home') %></a></li>
+        <% navItems.forEach(([p, key]) => { %>
+          <li><a href="<%= url(p) %>"<% if (isActive(p)) { %> aria-current="page"<% } %>><%= t('nav.' + key) %></a></li>
+        <% }) %>
+        <li><a href="<%= url('/appointment') %>"><%= t('nav.appointment') %></a></li>
+        <li><a href="<%= url('/contact') %>"><%= t('nav.contact') %></a></li>
+      </ul>
+      <div class="mobile-nav-foot">
+        <a href="tel:<%= site.phoneIntl %>"><%= site.phone %></a>
+        <a href="mailto:<%= site.email %>"><%= site.email %></a>
+      </div>
+    </nav>
+  </div>
+
+  <main id="main" tabindex="-1">

@@ -1,0 +1,51 @@
+<%- include('../partials/top', { title: t('lookbook.title'), description: t('lookbook.intro'), ogImage: img(looks[0].image, 1200, 630) }) %>
+
+<header class="page-head container">
+  <p class="eyebrow reveal"><%= t('lookbook.eyebrow') %></p>
+  <h1 class="h1 reveal"><%= t('lookbook.title') %></h1>
+  <p class="lead reveal"><%= t('lookbook.intro') %></p>
+</header>
+
+<section class="section section-flush-top">
+  <div class="container">
+    <ol class="lookbook-grid" data-lookbook>
+      <% looks.forEach((look, i) => { %>
+        <li class="look look-<%= look.shape %> reveal" id="look-<%= look.no %>">
+          <button class="look-open" type="button" data-look-index="<%= i %>"
+                  data-full="<%= img(look.image, 1800) %>"
+                  data-caption="<%= t('lookbook.look') %> <%= look.no %> — <%= L(look.title) %>"
+                  <% if (look.piece) { %>data-piece="<%= url('/collections/' + look.piece) %>"<% } %>
+                  aria-label="<%= t('lookbook.open') %>: <%= t('lookbook.look') %> <%= look.no %>">
+            <img src="<%= img(look.image, look.shape === 'wide' ? 1400 : 800, look.shape === 'wide' ? 933 : 1067) %>"
+                 srcset="<%= srcset(look.image, look.shape === 'wide' ? 0.6667 : 1.3333) %>"
+                 sizes="<%= look.shape === 'wide' ? '(min-width: 1024px) 64vw, 100vw' : '(min-width: 1024px) 31vw, (min-width: 640px) 46vw, 100vw' %>"
+                 alt="<%= t('lookbook.look') %> <%= look.no %> — <%= L(look.title) %>"
+                 width="<%= look.shape === 'wide' ? 1400 : 800 %>" height="<%= look.shape === 'wide' ? 933 : 1067 %>" loading="<%= i < 3 ? 'eager' : 'lazy' %>">
+          </button>
+          <div class="look-meta">
+            <span class="look-no"><%= look.no %></span>
+            <span class="look-title"><%= L(look.title) %></span>
+            <% if (look.piece) { %><a class="btn-text small" href="<%= url('/collections/' + look.piece) %>"><%= t('lookbook.viewPiece') %></a><% } %>
+          </div>
+        </li>
+      <% }) %>
+    </ol>
+  </div>
+</section>
+
+<dialog class="lightbox" data-lightbox aria-label="<%= t('lookbook.title') %>">
+  <div class="lightbox-inner">
+    <figure class="lightbox-figure">
+      <img src="" alt="" data-lightbox-img>
+      <figcaption>
+        <span data-lightbox-caption></span>
+        <a class="btn-text" href="#" data-lightbox-piece><%= t('lookbook.viewPiece') %></a>
+      </figcaption>
+    </figure>
+    <button class="icon-btn lightbox-close" type="button" data-lightbox-close aria-label="<%= t('lookbook.close') %>"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+    <button class="icon-btn lightbox-prev" type="button" data-lightbox-prev aria-label="<%= t('lookbook.prev') %>"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+    <button class="icon-btn lightbox-next" type="button" data-lightbox-next aria-label="<%= t('lookbook.next') %>"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+  </div>
+</dialog>
+
+<%- include('../partials/bottom') %>

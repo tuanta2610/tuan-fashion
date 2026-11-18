@@ -1,0 +1,38 @@
+<%- include('../partials/top', { title: t('appointment.title'), description: t('appointment.intro') }) %>
+
+<section class="container split-page">
+  <div class="split-aside">
+    <p class="eyebrow reveal"><%= t('appointment.eyebrow') %></p>
+    <h1 class="h1 reveal"><%= t('appointment.title') %></h1>
+    <p class="lead reveal"><%= t('appointment.intro') %></p>
+
+    <ul class="service-list">
+      <% t('appointment.services').forEach((s, i) => { %>
+        <li class="reveal">
+          <span class="service-no">0<%= i + 1 %></span>
+          <div>
+            <h2 class="h4"><%= s.title %></h2>
+            <p class="muted"><%= s.text %></p>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+
+    <div class="direct reveal">
+      <p class="h4"><%= t('appointment.direct') %></p>
+      <p class="muted"><%= t('appointment.directText') %></p>
+      <div class="btn-row">
+        <a class="btn btn-outline btn-sm" href="<%= site.zalo %>" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> Zalo</a>
+        <a class="btn btn-outline btn-sm" href="<%= site.whatsapp %>" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="split-form">
+    <div class="form-card reveal">
+      <%- include('../partials/inquiry-form', { formType: 'appointment' }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/bottom') %>

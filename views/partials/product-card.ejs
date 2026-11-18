@@ -1,0 +1,21 @@
+<%
+  const href = url('/collections/' + p.slug);
+  const sizes = locals.sizes || '(min-width: 1024px) 31vw, (min-width: 640px) 46vw, 92vw';
+%>
+<article class="card reveal">
+  <a class="card-link" href="<%= href %>">
+    <div class="card-media">
+      <img src="<%= img(p.image, 800, 1067) %>" srcset="<%= srcset(p.image, 1.3333) %>" sizes="<%= sizes %>"
+           alt="<%= L(p.name) %>" width="800" height="1067" loading="lazy" decoding="async">
+      <% if (!p.image.startsWith('/')) { %>
+      <img class="card-alt" src="<%= img(p.image, 800, 1067, '&crop=focalpoint&fp-x=0.5&fp-y=0.42&fp-z=1.7') %>" alt=""
+           width="800" height="1067" loading="lazy" decoding="async" aria-hidden="true">
+      <% } %>
+    </div>
+    <div class="card-body">
+      <p class="eyebrow"><%= t('categories.' + p.category) %></p>
+      <h3 class="card-title"><%= L(p.name) %></h3>
+      <p class="card-price"><%= price(p.price) %></p>
+    </div>
+  </a>
+</article>

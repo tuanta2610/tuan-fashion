@@ -1,0 +1,12 @@
+<%- include('../partials/top', { title: '404' }) %>
+
+<section class="section not-found">
+  <div class="container narrow center">
+    <p class="display">404</p>
+    <h1 class="h2"><%= t('notFound.title') %></h1>
+    <p class="lead"><%= t('notFound.text') %></p>
+    <a class="btn btn-primary" href="<%= url('/collections') %>"><%= t('notFound.cta') %> <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+  </div>
+</section>
+
+<%- include('../partials/bottom') %>

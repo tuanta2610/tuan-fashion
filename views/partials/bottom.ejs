@@ -1,0 +1,64 @@
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="logo logo-lg" href="<%= url('/') %>" aria-label="<%= t('a11y.home') %>">
+            <span class="logo-word">TUAN</span><span class="logo-sub">FASHION</span>
+          </a>
+          <p><%= t('footer.tagline') %></p>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-title"><%= t('footer.maison') %></h2>
+          <ul>
+            <li><a href="<%= url('/collections') %>"><%= t('nav.collections') %></a></li>
+            <li><a href="<%= url('/lookbook') %>"><%= t('nav.lookbook') %></a></li>
+            <li><a href="<%= url('/atelier') %>"><%= t('nav.atelier') %></a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-title"><%= t('footer.service') %></h2>
+          <ul>
+            <li><a href="<%= url('/appointment') %>"><%= t('nav.appointment') %></a></li>
+            <li><a href="<%= url('/contact') %>"><%= t('nav.contact') %></a></li>
+            <li><a href="tel:<%= site.phoneIntl %>"><%= site.phone %></a></li>
+            <li><a href="mailto:<%= site.email %>"><%= site.email %></a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-title"><%= t('footer.follow') %></h2>
+          <ul>
+            <li><a href="<%= site.zalo %>" target="_blank" rel="noopener">Zalo</a></li>
+            <li><a href="<%= site.whatsapp %>" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="<%= site.instagram %>" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="<%= site.facebook %>" target="_blank" rel="noopener">Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-address"><%= L(site.address) %> · <%= L(site.hours) %></p>
+      <div class="footer-bottom">
+        <p>© <%= year %> TUAN FASHION. <%= t('footer.rights') %></p>
+        <p><%= t('footer.privacy') %></p>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">TUAN FASHION</div>
+  </footer>
+
+  <div class="chat" data-chat>
+    <div class="chat-panel" id="chat-panel" data-chat-panel hidden>
+      <p class="chat-title"><%= t('chat.label') %></p>
+      <a class="chat-link" href="<%= site.zalo %>" target="_blank" rel="noopener">
+        <span class="chat-badge chat-badge-zalo" aria-hidden="true">Zalo</span><%= t('chat.zalo') %>
+      </a>
+      <a class="chat-link" href="<%= site.whatsapp %>" target="_blank" rel="noopener">
+        <span class="chat-badge chat-badge-wa" aria-hidden="true"><svg class="icon"><use href="#i-phone"/></svg></span><%= t('chat.whatsapp') %>
+      </a>
+    </div>
+    <button class="chat-toggle" type="button" aria-expanded="false" aria-controls="chat-panel" aria-label="<%= t('chat.toggle') %>" data-chat-toggle>
+      <svg class="icon icon-open" aria-hidden="true"><use href="#i-chat"/></svg>
+      <svg class="icon icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+  </div>
+</body>
+</html>

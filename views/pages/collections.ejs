@@ -1,0 +1,33 @@
+<%- include('../partials/top', {
+  title: category === 'all' ? t('collections.title') : `${t('categories.' + category)} — ${t('collections.title')}`,
+  description: t('collections.intro'),
+}) %>
+
+<header class="page-head container">
+  <p class="eyebrow reveal"><%= t('collections.eyebrow') %></p>
+  <h1 class="h1 reveal"><%= t('collections.title') %></h1>
+  <p class="lead reveal"><%= t('collections.intro') %></p>
+</header>
+
+<section class="section section-flush-top">
+  <div class="container">
+    <div class="toolbar">
+      <nav class="chips" aria-label="<%= t('collections.filter') %>">
+        <% ['all'].concat(categories).forEach((c) => { %>
+          <a class="chip" href="<%= url('/collections' + (c === 'all' ? '' : '?category=' + c)) %>"<% if (category === c) { %> aria-current="page"<% } %>><%= t('categories.' + c) %></a>
+        <% }) %>
+      </nav>
+      <p class="muted small"><%= t('collections.count', { n: list.length }) %></p>
+    </div>
+
+    <% if (list.length) { %>
+      <div class="grid grid-3">
+        <% list.forEach((p) => { %><%- include('../partials/product-card', { p }) %><% }) %>
+      </div>
+    <% } else { %>
+      <p class="muted"><%= t('collections.empty') %></p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/bottom') %>

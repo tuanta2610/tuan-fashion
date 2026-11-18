@@ -1,0 +1,60 @@
+<%- include('../partials/top', { title: t('atelier.eyebrow'), description: t('atelier.intro'), ogImage: img('1490481651871-ab68de25d43d', 1200, 630) }) %>
+
+<section class="banner">
+  <img src="<%= img('1490481651871-ab68de25d43d', 1800, 900) %>" srcset="<%= srcset('1490481651871-ab68de25d43d', 0.5) %>" sizes="100vw"
+       alt="<%= L({ vi: 'Giá treo trang phục tông màu trung tính trong atelier', en: 'A rail of neutral-toned garments in the atelier' }) %>" width="1800" height="900" fetchpriority="high">
+</section>
+
+<header class="page-head container center narrow">
+  <p class="eyebrow reveal"><%= t('atelier.eyebrow') %></p>
+  <h1 class="h1 reveal"><%= t('atelier.title') %></h1>
+  <p class="lead reveal"><%= t('atelier.intro') %></p>
+</header>
+
+<section class="section section-flush-top">
+  <div class="container chapters">
+    <% const chapterImages = ['1558769132-cb1aea458c5e', '1452860606245-08befc0ff44b', '1434389677669-e08b4cac3105']; %>
+    <% t('atelier.chapters').forEach((c, i) => { %>
+      <article class="chapter<%= i % 2 ? ' chapter-flip' : '' %>">
+        <figure class="chapter-media reveal">
+          <img src="<%= img(chapterImages[i], 1000, 1250) %>" srcset="<%= srcset(chapterImages[i], 1.25) %>"
+               sizes="(min-width: 1024px) 45vw, 100vw" alt="" width="1000" height="1250" loading="lazy">
+        </figure>
+        <div class="chapter-copy">
+          <p class="chapter-no reveal"><%= c.no %></p>
+          <h2 class="h2 reveal"><%= c.title %></h2>
+          <p class="reveal"><%= c.text %></p>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+</section>
+
+<section class="section tone-dark quote-band">
+  <div class="container narrow center">
+    <blockquote class="reveal">
+      <p class="display-quote">“<%= t('atelier.quote') %>”</p>
+      <footer class="eyebrow">— <%= t('atelier.quoteBy') %></footer>
+    </blockquote>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="h2 reveal"><%= t('atelier.process') %></h2>
+    <ol class="steps">
+      <% t('atelier.steps').forEach((s, i) => { %>
+        <li class="step reveal">
+          <span class="step-no">0<%= i + 1 %></span>
+          <h3 class="h4"><%= s.title %></h3>
+          <p><%= s.text %></p>
+        </li>
+      <% }) %>
+    </ol>
+    <div class="center">
+      <a class="btn btn-primary reveal" href="<%= url('/appointment') %>"><%= t('atelier.cta') %> <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/bottom') %>

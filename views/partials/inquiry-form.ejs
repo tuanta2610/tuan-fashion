@@ -1,0 +1,103 @@
+<%
+  const isAppt = formType === 'appointment';
+  const v = values || {};
+  const err = errors || {};
+  const id = (n) => `${formType}-${n}`;
+  const fieldAttrs = (n) => `id="${id(n)}" name="${n}" aria-describedby="${id(n)}-error"${err[n] ? ' aria-invalid="true"' : ''}`;
+%>
+<% if (status === 'sent') { %>
+  <div class="form-success" role="status">
+    <svg class="icon icon-lg" aria-hidden="true"><use href="#i-check"/></svg>
+    <h2 class="h3"><%= t('form.successTitle') %></h2>
+    <p><%= t('form.success') %></p>
+  </div>
+<% } else { %>
+<form class="form" action="/api/inquiry" method="post" novalidate data-inquiry
+      data-success-title="<%= t('form.successTitle') %>" data-sending="<%= t('form.sending') %>">
+  <input type="hidden" name="type" value="<%= formType %>">
+  <input type="hidden" name="lang" value="<%= lang %>">
+  <div class="hp" aria-hidden="true">
+    <label for="<%= id('company') %>">Company</label>
+    <input id="<%= id('company') %>" name="company" type="text" tabindex="-1" autocomplete="off">
+  </div>
+
+  <div class="form-grid">
+    <div class="field field-full">
+      <label for="<%= id('name') %>"><%= t('form.name') %></label>
+      <input type="text" <%- fieldAttrs('name') %> autocomplete="name" required maxlength="120" value="<%= v.name || '' %>">
+      <p class="field-error" id="<%= id('name') %>-error"><%= err.name || '' %></p>
+    </div>
+
+    <div class="field">
+      <label for="<%= id('email') %>"><%= t('form.email') %></label>
+      <input type="email" <%- fieldAttrs('email') %> autocomplete="email" inputmode="email" required maxlength="160" value="<%= v.email || '' %>">
+      <p class="field-error" id="<%= id('email') %>-error"><%= err.email || '' %></p>
+    </div>
+
+    <div class="field">
+      <label for="<%= id('phone') %>"><%= t('form.phone') %><% if (!isAppt) { %> <span class="opt">(<%= t('form.optional') %>)</span><% } %></label>
+      <input type="tel" <%- fieldAttrs('phone') %> autocomplete="tel" inputmode="tel" <%= isAppt ? 'required' : '' %> maxlength="30" value="<%= v.phone || '' %>">
+      <p class="field-error" id="<%= id('phone') %>-error"><%= err.phone || '' %></p>
+    </div>
+
+    <% if (isAppt) { %>
+    <fieldset class="field field-full choice-group">
+      <legend><%= t('form.service') %></legend>
+      <div class="choices">
+        <% t('form.serviceOptions').forEach((opt, i) => { %>
+          <label class="choice">
+            <input type="radio" name="service" value="<%= opt %>" <%= (v.service ? v.service === opt : i === 0) ? 'checked' : '' %>>
+            <span><%= opt %></span>
+          </label>
+        <% }) %>
+      </div>
+      <p class="field-error" id="<%= id('service') %>-error"><%= err.service || '' %></p>
+    </fieldset>
+
+    <div class="field">
+      <label for="<%= id('date') %>"><%= t('form.date') %></label>
+      <input type="date" <%- fieldAttrs('date') %> required data-min-today value="<%= v.date || '' %>">
+      <p class="field-error" id="<%= id('date') %>-error"><%= err.date || '' %></p>
+    </div>
+
+    <div class="field">
+      <label for="<%= id('time') %>"><%= t('form.time') %> <span class="opt">(<%= t('form.optional') %>)</span></label>
+      <select <%- fieldAttrs('time') %>>
+        <option value=""><%= t('form.choose') %></option>
+        <% t('form.timeOptions').forEach((opt) => { %>
+          <option value="<%= opt %>" <%= v.time === opt ? 'selected' : '' %>><%= opt %></option>
+        <% }) %>
+      </select>
+      <p class="field-error" id="<%= id('time') %>-error"></p>
+    </div>
+
+    <div class="field field-full">
+      <label for="<%= id('piece') %>"><%= t('form.piece') %> <span class="opt">(<%= t('form.optional') %>)</span></label>
+      <input type="text" <%- fieldAttrs('piece') %> maxlength="160" value="<%= v.piece || '' %>">
+      <p class="field-error" id="<%= id('piece') %>-error"><%= err.piece || '' %></p>
+    </div>
+    <% } %>
+
+    <div class="field field-full">
+      <label for="<%= id('message') %>"><%= t('form.message') %><% if (isAppt) { %> <span class="opt">(<%= t('form.optional') %>)</span><% } %></label>
+      <textarea <%- fieldAttrs('message') %> rows="<%= isAppt ? 3 : 5 %>" maxlength="2000" <%= isAppt ? '' : 'required' %>><%= v.message || '' %></textarea>
+      <p class="field-error" id="<%= id('message') %>-error"><%= err.message || '' %></p>
+    </div>
+
+    <div class="field field-full">
+      <label class="checkbox">
+        <input type="checkbox" <%- fieldAttrs('consent') %> required>
+        <span><%= t('form.consent') %></span>
+      </label>
+      <p class="field-error" id="<%= id('consent') %>-error"><%= err.consent || '' %></p>
+    </div>
+  </div>
+
+  <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+
+  <button class="btn btn-primary btn-block" type="submit">
+    <span data-btn-label><%= isAppt ? t('form.submit') : t('form.submitContact') %></span>
+    <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+  </button>
+</form>
+<% } %>

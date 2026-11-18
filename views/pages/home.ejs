@@ -1,0 +1,154 @@
+<%- include('../partials/top', {
+  head: `<script type="application/ld+json">${JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'ClothingStore',
+    name: 'TUAN FASHION',
+    url: site.url,
+    email: site.email,
+    telephone: site.phoneIntl,
+    address: { '@type': 'PostalAddress', streetAddress: L(site.address), addressCountry: 'VN' },
+    image: img('1544957992-20514f595d6f', 1200, 630),
+  })}</script>`
+}) %>
+
+<% const heroFocus = '&crop=focalpoint&fp-x=0.36&fp-y=0.5'; %>
+<!-- HERO ------------------------------------------------------------ -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow reveal"><%= t('home.heroEyebrow') %></p>
+      <h1 class="display reveal"><%= t('home.heroTitle') %></h1>
+      <p class="lead reveal"><%= t('home.heroSub') %></p>
+      <div class="btn-row reveal">
+        <a class="btn btn-primary" href="<%= url('/collections') %>">
+          <%= t('home.heroCta') %> <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+        <a class="btn-text" href="<%= url('/lookbook') %>"><%= t('home.heroCta2') %></a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <figure class="hero-main">
+        <img src="<%= img('1544957992-20514f595d6f', 1200, 1500, heroFocus) %>" srcset="<%= srcset('1544957992-20514f595d6f', 1.25, heroFocus) %>"
+             sizes="(min-width: 1024px) 50vw, 100vw" alt="<%= L({ vi: 'Người mẫu mặc đầm organza trắng bay trong gió', en: 'Model in a white organza gown moving in the wind' }) %>"
+             width="1200" height="1500" fetchpriority="high">
+      </figure>
+      <figure class="hero-inset reveal">
+        <img src="<%= img('1618244972963-dbee1a7edc95', 600, 800) %>" alt="<%= L({ vi: 'Măng tô lạc đà trên phố cổ', en: 'Camel coat in the old town' }) %>"
+             width="600" height="800" loading="lazy">
+      </figure>
+      <p class="hero-caption" aria-hidden="true">N° 01 — <%= t('home.heroTitle') %></p>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO ------------------------------------------------------- -->
+<section class="section manifesto">
+  <div class="container narrow center">
+    <p class="eyebrow reveal"><%= t('home.manifestoEyebrow') %></p>
+    <blockquote class="manifesto-text reveal">
+      <p><%= t('home.manifesto') %></p>
+    </blockquote>
+    <p class="signature reveal">— <%= t('home.manifestoSign') %>, TUAN FASHION</p>
+  </div>
+</section>
+
+<!-- FEATURED -------------------------------------------------------- -->
+<section class="section section-tight">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal"><%= t('home.featuredEyebrow') %></p>
+        <h2 class="h2 reveal"><%= t('home.featuredTitle') %></h2>
+      </div>
+      <a class="btn-text reveal" href="<%= url('/collections') %>"><%= t('home.viewAll') %></a>
+    </div>
+    <div class="grid grid-3">
+      <% featured.forEach((p) => { %><%- include('../partials/product-card', { p }) %><% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT ----------------------------------------------------------- -->
+<section class="section craft tone-dark">
+  <div class="container craft-grid">
+    <figure class="craft-media reveal">
+      <img src="<%= img('1509319117193-57bab727e09d', 1000, 1250) %>" srcset="<%= srcset('1509319117193-57bab727e09d', 1.25) %>"
+           sizes="(min-width: 1024px) 45vw, 100vw" alt="<%= L({ vi: 'Chi tiết ren và len trên giá treo tại atelier', en: 'Lace and knit details on a rail in the atelier' }) %>"
+           width="1000" height="1250" loading="lazy">
+    </figure>
+    <div class="craft-copy">
+      <p class="eyebrow reveal"><%= t('home.craftEyebrow') %></p>
+      <h2 class="h2 reveal"><%= t('home.craftTitle') %></h2>
+      <p class="reveal"><%= t('home.craftText') %></p>
+      <dl class="stats">
+        <% t('home.stats').forEach((s) => { %>
+          <div class="stat reveal"><dt><%= s.label %></dt><dd><%= s.value %></dd></div>
+        <% }) %>
+      </dl>
+      <a class="btn btn-light reveal" href="<%= url('/atelier') %>"><%= t('home.craftCta') %> <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES ------------------------------------------------------ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal"><%= t('home.categoriesEyebrow') %></p>
+        <h2 class="h2 reveal"><%= t('home.categoriesTitle') %></h2>
+      </div>
+    </div>
+    <div class="cat-grid">
+      <% [
+        ['evening', '1595777457583-95e059d581b8'],
+        ['ready-to-wear', '1550614000-4895a10e1bfd'],
+        ['outerwear', '1554412933-514a83d2f3c8'],
+        ['knitwear', '1558769132-cb1aea458c5e'],
+      ].forEach(([cat, image], i) => { %>
+        <a class="cat-tile reveal" href="<%= url('/collections?category=' + cat) %>">
+          <img src="<%= img(image, 700, 933) %>" srcset="<%= srcset(image, 1.3333) %>" sizes="(min-width: 1024px) 24vw, 46vw"
+               alt="" width="700" height="933" loading="lazy">
+          <span class="cat-label"><span class="cat-no">0<%= i + 1 %></span><%= t('categories.' + cat) %></span>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- LOOKBOOK RAIL --------------------------------------------------- -->
+<section class="section section-tight lookbook-teaser">
+  <div class="container section-head">
+    <div>
+      <p class="eyebrow reveal"><%= t('home.lookbookEyebrow') %></p>
+      <h2 class="h2 reveal"><%= t('home.lookbookTitle') %></h2>
+    </div>
+    <a class="btn-text reveal" href="<%= url('/lookbook') %>"><%= t('home.heroCta2') %></a>
+  </div>
+  <div class="rail" tabindex="0" aria-label="<%= t('nav.lookbook') %>">
+    <% looks.forEach((look) => { %>
+      <a class="rail-item" href="<%= url('/lookbook') %>#look-<%= look.no %>">
+        <img src="<%= img(look.image, 640, 853) %>" alt="<%= t('lookbook.look') %> <%= look.no %> — <%= L(look.title) %>"
+             width="640" height="853" loading="lazy">
+        <span class="rail-caption"><span><%= look.no %></span> <%= L(look.title) %></span>
+      </a>
+    <% }) %>
+  </div>
+</section>
+
+<!-- APPOINTMENT CTA ------------------------------------------------- -->
+<section class="section">
+  <div class="container">
+    <div class="cta-frame reveal">
+      <p class="eyebrow"><%= t('home.appointmentEyebrow') %></p>
+      <h2 class="h2"><%= t('home.appointmentTitle') %></h2>
+      <p class="lead"><%= t('home.appointmentText') %></p>
+      <div class="btn-row center">
+        <a class="btn btn-primary" href="<%= url('/appointment') %>"><%= t('home.appointmentCta') %> <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        <a class="btn btn-outline" href="<%= site.zalo %>" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> <%= t('chat.zalo') %></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/bottom') %>

@@ -1,0 +1,42 @@
+<%- include('../partials/top', { title: t('nav.contact'), description: t('contact.intro') }) %>
+
+<section class="container split-page">
+  <div class="split-aside">
+    <p class="eyebrow reveal"><%= t('contact.eyebrow') %></p>
+    <h1 class="h1 reveal"><%= t('contact.title') %></h1>
+    <p class="lead reveal"><%= t('contact.intro') %></p>
+
+    <ul class="contact-list">
+      <li class="reveal">
+        <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
+        <div><h2 class="label"><%= t('contact.visit') %></h2><p><%= L(site.address) %></p></div>
+      </li>
+      <li class="reveal">
+        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+        <div><h2 class="label"><%= t('contact.call') %></h2><p><a href="tel:<%= site.phoneIntl %>"><%= site.phone %></a> · <a href="<%= site.zalo %>" target="_blank" rel="noopener">Zalo</a> · <a href="<%= site.whatsapp %>" target="_blank" rel="noopener">WhatsApp</a></p></div>
+      </li>
+      <li class="reveal">
+        <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+        <div><h2 class="label"><%= t('contact.write') %></h2><p><a href="mailto:<%= site.email %>"><%= site.email %></a></p></div>
+      </li>
+      <li class="reveal">
+        <svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>
+        <div><h2 class="label"><%= t('contact.hours') %></h2><p><%= L(site.hours) %></p></div>
+      </li>
+    </ul>
+
+    <div class="map reveal">
+      <iframe title="<%= t('contact.map') %>" src="https://www.google.com/maps?q=<%= encodeURIComponent(site.mapQuery) %>&output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+
+  <div class="split-form">
+    <div class="form-card reveal">
+      <h2 class="h3 form-title"><%= t('contact.formTitle') %></h2>
+      <%- include('../partials/inquiry-form', { formType: 'contact' }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/bottom') %>
